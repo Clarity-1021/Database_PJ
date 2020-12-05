@@ -1,6 +1,6 @@
 <template>
-<div class="d-flex flex-row" style="height: 100vh">
-  <v-navigation-drawer permanent>
+<div class="d-flex flex-row overflow-x-auto overflow-y-hidden" style="min-height: 100vh">
+  <v-navigation-drawer style="min-width: 200px; min-height: 100vh" permanent>
 <!--  <v-navigation-drawer permanent style="border: solid">-->
 
     <v-list><!--版头-->
@@ -16,7 +16,7 @@
 
     <v-list nav dense><!--列表-->
       <v-list-item-group v-model="selectedItem" color="primary">
-        <v-list-item v-for="(item, i) in items" :key="i" @click="currentMenuItem=item.text">
+        <v-list-item v-for="(item, i) in menuItems" :key="i" @click="currentMenuItem=item.text">
 
           <!--logo-->
           <v-list-item-icon><v-icon v-text="item.icon"></v-icon></v-list-item-icon>
@@ -41,19 +41,14 @@ export default {
   name: 'Home',
   data: () => ({
     selectedItem: 0,
-    items: [
+    currentMenuItem: '主治医师',
+    menuItems: [
       { text: '主治医师', icon: 'mdi-badge-account-horizontal' },
       { text: '护士长', icon: 'mdi-face-woman-shimmer' },
       { text: '急诊护士', icon: 'mdi-face-shimmer' },
       { text: '病房护士', icon: 'mdi-face-shimmer-outline' }
     ]
-  }),
-  props: {
-    currentMenuItem: {
-      type: String,
-      default: '主治医师'
-    }
-  }
+  })
 }
 </script>
 

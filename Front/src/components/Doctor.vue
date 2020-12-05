@@ -1,48 +1,64 @@
 <template>
-  <v-container fluid>
-<!--    Doctor-->
-    <!--选择区域-->
-    <v-card class="d-flex flex-row justify-space-around py-2">
-<!--    <v-row class="d-flex flex-row justify-space-around" style="border: solid">-->
-      <v-btn v-for="(area, i) in areas" :key="i" v-text="area.text" color="primary" elevation="2" @click="areaType=area.text"></v-btn>
-    </v-card>
+  <v-container style="min-width: 900px" fluid>
+    <!--选择治疗区域-->
     <v-container fluid>
-<!--    <v-container fluid style="border: solid">-->
-<!--    <v-container v-if="areaType" fluid style="border: solid">-->
-      <v-card class="py-2"><span class="text--disabled">你是</span>{{ areaType }}<span class="text--disabled">病区的主治医师</span></v-card>
-      <v-row class="my-5">
-        <!--    <v-row class="d-flex flex-row justify-space-between my-5" style="border: solid">-->
-        <!--    <v-row v-if="areaType!==''">-->
-        <v-col cols="3">
-          <v-select class="my-3 mx-5" v-for="(selectItem, i) in selectItems" :key="i" :items="selectItem.items" :label="selectItem.text" dense></v-select>
-        </v-col>
-      </v-row>
-      <v-row class="d-flex flex-row justify-center my-5">
-        <!--    <v-row class="d-flex flex-row justify-space-between my-5" style="border: solid">-->
-        <!--    <v-row v-if="areaType!==''">-->
-        <v-col cols="4"><v-btn class="my-3 mx-5" v-text="checkBtnText" color="primary" elevation="2"></v-btn></v-col>
-      </v-row>
+      <v-card class="d-flex flex-row justify-space-around py-3">
+        <v-btn dark v-for="(area, i) in areas" :key="i" v-text="area.text" elevation="2" color="blue darken-3" @click="areaType=area.text"></v-btn>
+      </v-card>
     </v-container>
+
+    <v-container fluid v-if="areaType">
+      <v-card class="d-flex flex-row justify-space-around py-3">
+        <v-btn dark v-for="(func, j) in funcs" :key="j" v-text="func.text" elevation="2" color="blue darken-3" @click="funcType=func.text"></v-btn>
+      </v-card>
+    </v-container>
+
+    <SearchPatient :areaType="areaType" v-if="funcType==='查询病人'" />
+    <SearchNurseHead :area-type="areaType" v-if="funcType==='查询护士长'" />
   </v-container>
 </template>
 
 <script>
 export default {
   name: 'Doctor',
-  data: () => ({
-    areas: [
-      { text: '轻症' },
-      { text: '重症' },
-      { text: '危重症' }
-    ],
-    areaType: false,
-    selectItems: [
-      { text: '是否出院', items: ['是', '否', '所有'] },
-      { text: '是否待转入其他病房', items: ['是', '否', '所有'] },
-      { text: '生命状态', items: ['康复出院', '在院治疗', '病亡', '所有'] }
-    ],
-    checkBtnText: '查询病人'
-  })
+  computed: {
+    numberOfPages () {
+      return Math.ceil(this.items.length / this.patientsPerPage)
+    }
+  },
+  methods: {
+    nextPage () {
+      if (this.page + 1 <= this.numberOfPages) this.page += 1
+    },
+    formerPage () {
+      if (this.page - 1 >= 1) this.page -= 1
+    },
+    updatepatientsPerPage (number) {
+      this.patientsPerPage = number
+    }
+  },
+  data () {
+    return {
+      areas: [
+        {text: '轻症'},
+        {text: '重症'},
+        {text: '危重症'}
+      ],
+      areaType: '轻症',
+      // areaType: false,
+      funcs: [
+        {text: '查询病人'},
+        {text: '查询护士长'},
+        {text: '查询护士'},
+        {text: '修改病情评级'},
+        {text: '修改生命特征'},
+        {text: '核酸检测'},
+        {text: '决定出院'}
+      ],
+      funcType: '查询护士长'
+      // funcType: ''
+    }
+  }
 }
 </script>
 

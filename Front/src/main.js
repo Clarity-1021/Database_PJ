@@ -14,6 +14,8 @@ import Doctor from './components/Doctor'
 import NurseEmergency from './components/NurseEmergency'
 import NurseHead from './components/NurseHead'
 import NurseWard from './components/NurseWard'
+import SearchPatient from './components/Doctor/SearchPatient'
+import SearchNurseHead from './components/Doctor/SearchNurseHead'
 
 Vue.config.productionTip = false
 
@@ -25,12 +27,16 @@ Vue.use(Doctor)
 Vue.use(NurseWard)
 Vue.use(NurseHead)
 Vue.use(NurseEmergency)
+Vue.use(SearchPatient)
+Vue.use(SearchNurseHead)
 
 // 初始化组件
 Vue.component('NurseWard', NurseWard)
 Vue.component('NurseHead', NurseHead)
 Vue.component('NurseEmergency', NurseEmergency)
 Vue.component('Doctor', Doctor)
+Vue.component('SearchPatient', SearchPatient)
+Vue.component('SearchNurseHead', SearchNurseHead)
 
 /* eslint-disable no-new */
 new Vue({
@@ -48,7 +54,9 @@ new Vue({
     Doctor,
     NurseHead,
     NurseEmergency,
-    NurseWard
+    NurseWard,
+    SearchPatient,
+    SearchNurseHead
   },
   template: '<App/>'
 })
