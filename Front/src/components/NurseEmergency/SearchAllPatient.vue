@@ -1,7 +1,23 @@
 <template>
   <v-container fluid>
     <!--显示角色身份-->
-    <v-card dark color="blue darken-3" class="py-3 my-3">你是“{{ currentItem.area }}”病区的主治医师“{{ currentItem.name }}”，正在决定病人是否出院</v-card>
+    <v-card dark color="blue darken-3" class="py-3 my-3">你是急诊护士“{{ currentItem.name }}”，正在查询病人信息</v-card>
+    <!--选择查询病人的条件-->
+    <v-card class="mb-3">
+      <!--筛选框-->
+      <v-row class="my-3">
+        <v-col v-for="(selectItem, i) in selectItems" :key="i" cols="4">
+          <v-select offset-y class="py-3 px-3"  :items="selectItem.items" :label="selectItem.text" dense></v-select>
+        </v-col>
+      </v-row>
+
+      <!--查询按钮-->
+      <v-row>
+        <v-col>
+          <v-btn class="my-5 mx-5" v-text="checkBtnText" elevation="2"></v-btn>
+        </v-col>
+      </v-row>
+    </v-card>
 
     <!--展示病人信息-->
     <v-data-iterator :items="items" :items-per-page.sync="itemsPerPage" :page="page" hide-default-footer>
@@ -49,15 +65,15 @@
               <v-divider></v-divider>
 
               <v-list dense>
-                <v-list-item>
-                  <v-list-item-content class="font-weight-bold">是否满足出院条件</v-list-item-content>
+                <v-list-item v-for="(info, index) in itemsInfos" :key="index">
+                  <v-list-item-content class="font-weight-bold">
+                    {{ keys[index] }}
+                  </v-list-item-content>
                   <v-list-item-content class="align-end">
-                    {{ item.checkOut }}
+                    {{ item[info] }}
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
-
-              <v-col><v-btn class="my-1" dark elevation="2" color="blue darken-3">决定出院</v-btn></v-col>
             </v-card>
           </v-col>
         </v-row>
@@ -68,11 +84,15 @@
 
 <script>
 export default {
-  name: 'DecideCheckOut',
+  name: 'SearchAllPatient',
   props: {
     currentItem: {
       type: Set,
       default: {}
+    },
+    roleType: {
+      type: String,
+      default: ''
     }
   },
   computed: {
@@ -93,44 +113,75 @@ export default {
   },
   data () {
     return {
+      // areaType: '',
+      selectItems: [
+        {text: '治疗区域', items: ['轻症', '重症', '危重症', '隔离区', '所有']},
+        {text: '病情评级', items: ['轻症', '重症', '危重症', '所有']},
+        {text: '生命状态', items: ['康复出院', '在院治疗', '病亡', '所有']}
+      ],
+      checkBtnText: '查询病人',
       itemsPerPageArray: [4, 8, 12],
       page: 1,
       itemsPerPage: 4,
+      keys: [
+        '治疗区域',
+        '病情评级',
+        '生命状态'
+      ],
+      itemsInfos: [
+        'area',
+        'illnessLevel',
+        'lifeState'
+      ],
       items: [
         {
-          id: '9',
+          id: '123',
           name: '李斯特',
-          checkOut: '是'
+          area: '隔离区',
+          illnessLevel: '重症',
+          lifeState: '病亡'
         },
         {
-          id: '11',
-          name: '好医生',
-          checkOut: '是'
+          id: '1234',
+          name: '讲文明',
+          area: '轻症',
+          illnessLevel: '重症',
+          lifeState: '在院治疗亡'
         },
         {
-          id: '3',
-          name: '包治',
-          checkOut: '否'
+          id: '124',
+          name: '有礼貌',
+          area: '轻症',
+          illnessLevel: '轻症',
+          lifeState: '康复出院'
         },
         {
-          id: '5',
-          name: '白冰',
-          checkOut: '否'
+          id: '143',
+          name: '不说',
+          area: '危重症',
+          illnessLevel: '重症',
+          lifeState: '病亡'
         },
         {
-          id: '7',
-          name: '不愧',
-          checkOut: '是'
+          id: '1232',
+          name: '脏话',
+          area: '轻症',
+          illnessLevel: '危重症',
+          lifeState: '在院治疗'
         },
         {
-          id: '1',
-          name: '是你',
-          checkOut: '否'
+          id: '127',
+          name: '好',
+          area: '危重症',
+          illnessLevel: '轻症',
+          lifeState: '在院治疗'
         },
         {
-          id: '8',
-          name: '老李',
-          checkOut: '是'
+          id: '128',
+          name: '习惯',
+          area: '重症',
+          illnessLevel: '轻症',
+          lifeState: '康复出院'
         }
       ]
     }

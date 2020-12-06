@@ -27,10 +27,10 @@
       </v-list-item-group>
     </v-list>
   </v-navigation-drawer>
-  <Doctor v-if="currentMenuItem==='主治医师'" />
-  <NurseHead v-if="currentMenuItem==='护士长'" style="border: solid" />
-  <NurseEmergency v-if="currentMenuItem==='急诊护士'" style="border: solid" />
-  <NurseWard v-if="currentMenuItem==='病房护士'" style="border: solid" />
+  <Doctor v-if="currentMenuItem==='主治医师'" :items="doctors" />
+  <NurseHead v-if="currentMenuItem==='护士长'" :items="nurseHeads" />
+  <NurseEmergency v-if="currentMenuItem==='急诊护士'" :items="nurseEmergencys" />
+  <NurseWard v-if="currentMenuItem==='病房护士'" :items="nurseWards" />
 </div>
 </template>
 
@@ -38,13 +38,105 @@
 export default {
   name: 'Home',
   data: () => ({
-    selectedItem: 0,
-    currentMenuItem: '主治医师',
+    selectedItem: 3,
+    currentMenuItem: '病房护士',
     menuItems: [
       { text: '主治医师', icon: 'mdi-badge-account-horizontal' },
       { text: '护士长', icon: 'mdi-face-woman-shimmer' },
       { text: '急诊护士', icon: 'mdi-face-shimmer' },
       { text: '病房护士', icon: 'mdi-face-shimmer-outline' }
+    ],
+    doctors: [
+      {
+        id: '1',
+        name: '李斯特',
+        area: '轻症'
+      },
+      {
+        id: '2',
+        name: '李斯特',
+        area: '重症'
+      },
+      {
+        id: '3',
+        name: '李斯特',
+        area: '危重症'
+      }
+    ],
+    nurseHeads: [
+      {
+        id: '1',
+        name: '张美丽',
+        area: '轻症'
+      },
+      {
+        id: '2',
+        name: '张美丽',
+        area: '重症'
+      },
+      {
+        id: '3',
+        name: '张美丽',
+        area: '危重症'
+      }
+    ],
+    nurseEmergencys: [
+      {
+        id: '1',
+        name: '李漂亮'
+      },
+      {
+        id: '2',
+        name: '肖漂亮'
+      },
+      {
+        id: '3',
+        name: '大漂亮'
+      },
+      {
+        id: '4',
+        name: '张漂亮'
+      },
+      {
+        id: '5',
+        name: '王漂亮'
+      },
+      {
+        id: '6',
+        name: '陈漂亮'
+      }
+    ],
+    nurseWards: [
+      {
+        id: '1',
+        name: '张美丽',
+        area: '轻症'
+      },
+      {
+        id: '2',
+        name: '张美丽',
+        area: '重症'
+      },
+      {
+        id: '3',
+        name: '张美丽',
+        area: '危重症'
+      },
+      {
+        id: '4',
+        name: '张美丽',
+        area: '轻症'
+      },
+      {
+        id: '5',
+        name: '张美丽',
+        area: '危重症'
+      },
+      {
+        id: '6',
+        name: '张美丽',
+        area: '危重症'
+      }
     ]
   })
 }

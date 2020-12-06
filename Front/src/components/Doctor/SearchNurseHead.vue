@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <!--显示角色身份-->
-    <v-card dark color="blue darken-3" class="py-3 my-3">你是“{{ areaType }}”病区的主治医师，正在查询护士长的信息</v-card>
+    <v-card dark color="blue darken-3" class="py-3 my-3">你是“{{ currentItem.area }}”病区的主治医师“{{ currentItem.name }}”，正在查询护士长的信息</v-card>
 
     <!--展示护士长信息-->
     <v-data-iterator :items="items" :items-per-page.sync="itemsPerPage" :page="page" hide-default-footer>
@@ -57,9 +57,9 @@
 export default {
   name: 'SearchNurseHead',
   props: {
-    areaType: {
-      type: String,
-      default: ''
+    currentItem: {
+      type: Set,
+      default: {}
     }
   },
   computed: {

@@ -1,14 +1,14 @@
 <template>
   <v-container fluid>
-    <!--展示病房护士信息-->
-    <v-card dark color="blue darken-3" class="py-3 my-3">病房护士“{{ nurseName }}”负责的病人</v-card>
+    <!--显示角色身份-->
+    <v-card dark color="blue darken-3" class="py-3 my-3">你是“{{ currentItem.area }}”病区的护士长“{{ currentItem.name }}”，正在查询病床</v-card>
 
-    <!--展示病人信息-->
+    <!--展示病床信息-->
     <v-data-iterator :items="items" :items-per-page.sync="itemsPerPage" :page="page" hide-default-footer>
       <template v-slot:header>
         <v-toolbar dark color="blue darken-3" class="mb-1">
 
-          <span>每页病人数量</span>
+          <span>每页病床数量</span>
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn light text color="white" class="ml-2" v-bind="attrs" v-on="on">
@@ -43,8 +43,21 @@
           <v-col v-for="item in props.items" :key="item.id" cols="12" sm="6" md="4" lg="3">
             <v-card>
               <v-card-title class="subheading font-weight-bold">
-                {{ item.name }}
+                {{ item.id }}
               </v-card-title>
+
+              <v-divider></v-divider>
+
+              <v-list dense>
+                <v-list-item>
+                  <v-list-item-content class="font-weight-bold">
+                    病人
+                  </v-list-item-content>
+                  <v-list-item-content class="align-end">
+                    {{ item.patient.name }}
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
             </v-card>
           </v-col>
         </v-row>
@@ -55,15 +68,11 @@
 
 <script>
 export default {
-  name: 'SearchPatientCharged',
+  name: 'SearchBed',
   props: {
-    nurseName: {
-      type: String,
-      default: ''
-    },
-    items: {
+    currentItem: {
       type: Set,
-      default: [{name: ''}]
+      default: {}
     }
   },
   computed: {
@@ -86,7 +95,44 @@ export default {
     return {
       itemsPerPageArray: [4, 8, 12],
       page: 1,
-      itemsPerPage: 4
+      itemsPerPage: 4,
+      items: [
+        {
+          id: '123',
+          patient: {
+            id: '1',
+            name: '小李'
+          }
+        },
+        {
+          id: '1234',
+          patient: {
+            id: '2',
+            name: '小三'
+          }
+        },
+        {
+          id: '1233',
+          patient: {
+            id: '5',
+            name: '小搜'
+          }
+        },
+        {
+          id: '1323',
+          patient: {
+            id: '6',
+            name: '小无'
+          }
+        },
+        {
+          id: '1323',
+          patient: {
+            id: '7',
+            name: '小留'
+          }
+        }
+      ]
     }
   }
 }

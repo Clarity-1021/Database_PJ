@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
-    <!--显示角色身份-->
-    <v-card dark color="blue darken-3" class="py-3 my-3">你是“{{ currentItem.area }}”病区的主治医师“{{ currentItem.name }}”，正在决定病人是否出院</v-card>
+    <!--展示病房护士信息-->
+    <v-card dark color="blue darken-3" class="py-3 my-3">病房护士“{{ currentItem.name }}”负责的病人</v-card>
 
     <!--展示病人信息-->
     <v-data-iterator :items="items" :items-per-page.sync="itemsPerPage" :page="page" hide-default-footer>
@@ -45,19 +45,6 @@
               <v-card-title class="subheading font-weight-bold">
                 {{ item.name }}
               </v-card-title>
-
-              <v-divider></v-divider>
-
-              <v-list dense>
-                <v-list-item>
-                  <v-list-item-content class="font-weight-bold">是否满足出院条件</v-list-item-content>
-                  <v-list-item-content class="align-end">
-                    {{ item.checkOut }}
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-
-              <v-col><v-btn class="my-1" dark elevation="2" color="blue darken-3">决定出院</v-btn></v-col>
             </v-card>
           </v-col>
         </v-row>
@@ -68,11 +55,15 @@
 
 <script>
 export default {
-  name: 'DecideCheckOut',
+  name: 'SearchPatientCharged',
   props: {
     currentItem: {
       type: Set,
       default: {}
+    },
+    items: {
+      type: Set,
+      default: [{name: ''}]
     }
   },
   computed: {
@@ -95,44 +86,7 @@ export default {
     return {
       itemsPerPageArray: [4, 8, 12],
       page: 1,
-      itemsPerPage: 4,
-      items: [
-        {
-          id: '9',
-          name: '李斯特',
-          checkOut: '是'
-        },
-        {
-          id: '11',
-          name: '好医生',
-          checkOut: '是'
-        },
-        {
-          id: '3',
-          name: '包治',
-          checkOut: '否'
-        },
-        {
-          id: '5',
-          name: '白冰',
-          checkOut: '否'
-        },
-        {
-          id: '7',
-          name: '不愧',
-          checkOut: '是'
-        },
-        {
-          id: '1',
-          name: '是你',
-          checkOut: '否'
-        },
-        {
-          id: '8',
-          name: '老李',
-          checkOut: '是'
-        }
-      ]
+      itemsPerPage: 4
     }
   }
 }

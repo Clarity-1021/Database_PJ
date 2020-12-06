@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <!--显示角色身份-->
-    <v-card dark color="blue darken-3" class="py-3 my-3">你是“{{ areaType }}”病区的主治医师，正在查询病人的信息</v-card>
+    <v-card dark color="blue darken-3" class="py-3 my-3">你是“{{ currentItem.area }}”病区的{{ roleType }}“{{ currentItem.name }}”，正在查询病人信息</v-card>
 
     <!--选择查询病人的条件-->
     <v-card class="mb-3">
@@ -85,9 +85,13 @@
 
 <script>
 export default {
-  name: 'Searchitems',
+  name: 'SearchPatient',
   props: {
-    areaType: {
+    currentItem: {
+      type: Set,
+      default: {}
+    },
+    roleType: {
       type: String,
       default: ''
     }
@@ -112,7 +116,7 @@ export default {
     return {
       // areaType: '',
       selectItems: [
-        {text: '是否出院', items: ['是', '否', '所有']},
+        {text: '是否满足出院条件', items: ['是', '否', '所有']},
         {text: '是否待转入其他病区', items: ['是', '否', '所有']},
         {text: '生命状态', items: ['康复出院', '在院治疗', '病亡', '所有']}
       ],
@@ -121,12 +125,12 @@ export default {
       page: 1,
       itemsPerPage: 4,
       keys: [
-        '是否出院',
+        '是否满足出院条件',
         '待转入病区',
         '生命状态'
       ],
       itemsInfos: [
-        'isInHospital',
+        'checkOut',
         'waitForOtherArea',
         'lifeState'
       ],
@@ -134,49 +138,49 @@ export default {
         {
           id: '123',
           name: '李斯特',
-          isInHospital: '住院',
+          checkOut: '是',
           waitForOtherArea: '-',
           lifeState: '在院治疗'
         },
         {
           id: '1234',
           name: '讲文明',
-          isInHospital: '出院',
+          checkOut: '是',
           waitForOtherArea: '-',
           lifeState: '在院治疗'
         },
         {
           id: '124',
           name: '有礼貌',
-          isInHospital: '住院',
+          checkOut: '否',
           waitForOtherArea: '-',
           lifeState: '康复出院'
         },
         {
           id: '143',
           name: '不说',
-          isInHospital: '住院',
+          checkOut: '否',
           waitForOtherArea: '轻症',
           lifeState: '在院治疗'
         },
         {
           id: '1232',
           name: '脏话',
-          isInHospital: '住院',
+          checkOut: '否',
           waitForOtherArea: '-',
           lifeState: '在院治疗'
         },
         {
           id: '127',
           name: '好',
-          isInHospital: '住院',
+          checkOut: '否',
           waitForOtherArea: '-',
           lifeState: '在院治疗'
         },
         {
           id: '128',
           name: '习惯',
-          isInHospital: '住院',
+          checkOut: '否',
           waitForOtherArea: '-',
           lifeState: '在院治疗'
         }

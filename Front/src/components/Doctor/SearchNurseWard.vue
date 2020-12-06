@@ -1,14 +1,14 @@
 <template>
   <v-container fluid>
     <!--显示角色身份-->
-    <v-card dark color="blue darken-3" class="py-3 my-3">你是“{{ areaType }}”病区的主治医师，正在查询病房护士的信息</v-card>
+    <v-card dark color="blue darken-3" class="py-3 my-3">你是“{{ currentItem.area }}”病区的{{ roleType }}“{{ currentItem.name }}”，正在查询病房护士的信息</v-card>
 
-    <!--展示护士长信息-->
+    <!--展示病房护士信息-->
     <v-data-iterator :items="items" :items-per-page.sync="itemsPerPage" :page="page" hide-default-footer>
       <template v-slot:header>
         <v-toolbar dark color="blue darken-3" class="mb-1">
 
-          <span>每页护士长数量</span>
+          <span>每页病房护士数量</span>
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn light text color="white" class="ml-2" v-bind="attrs" v-on="on">
@@ -41,7 +41,7 @@
       <template v-slot:default="props">
         <v-row>
           <v-col v-for="item in props.items" :key="item.id" cols="12" sm="6" md="4" lg="3">
-            <v-card link @click="currentItem=item">
+            <v-card link @click="currentNurse=item">
               <v-card-title class="subheading font-weight-bold">
                 {{ item.name }}
               </v-card-title>
@@ -51,15 +51,19 @@
       </template>
     </v-data-iterator>
 
-    <SearchPatientCharged v-if="currentItem" :nurseName="currentItem.name" :items="currentItem.patients" />
+    <SearchPatientCharged v-if="currentNurse" :currentItem="currentNurse" :items="currentNurse.patients" />
   </v-container>
 </template>
 
 <script>
 export default {
-  name: 'SearchNurse',
+  name: 'SearchNurseWard',
   props: {
-    areaType: {
+    currentItem: {
+      type: Set,
+      default: {}
+    },
+    roleType: {
       type: String,
       default: ''
     }
@@ -85,7 +89,7 @@ export default {
       itemsPerPageArray: [4, 8, 12],
       page: 1,
       itemsPerPage: 4,
-      currentItem: false,
+      currentNurse: false,
       items: [
         {
           id: '8',

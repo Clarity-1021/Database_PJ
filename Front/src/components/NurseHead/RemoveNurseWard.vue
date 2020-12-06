@@ -1,14 +1,13 @@
 <template>
   <v-container fluid>
     <!--显示角色身份-->
-    <v-card dark color="blue darken-3" class="py-3 my-3">你是“{{ currentItem.area }}”病区的主治医师“{{ currentItem.name }}”，正在决定病人是否出院</v-card>
-
-    <!--展示病人信息-->
+    <v-card dark color="blue darken-3" class="py-3 my-3">你是“{{ currentItem.area }}”病区的护士长“{{ currentItem.name }}”，正在解雇病房护士</v-card>
+    <!--展示病房护士信息-->
     <v-data-iterator :items="items" :items-per-page.sync="itemsPerPage" :page="page" hide-default-footer>
       <template v-slot:header>
         <v-toolbar dark color="blue darken-3" class="mb-1">
 
-          <span>每页病人数量</span>
+          <span>每页病房护士数量</span>
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn light text color="white" class="ml-2" v-bind="attrs" v-on="on">
@@ -48,16 +47,8 @@
 
               <v-divider></v-divider>
 
-              <v-list dense>
-                <v-list-item>
-                  <v-list-item-content class="font-weight-bold">是否满足出院条件</v-list-item-content>
-                  <v-list-item-content class="align-end">
-                    {{ item.checkOut }}
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
+              <v-col><v-btn class="mb-4" dark elevation="2" color="blue darken-3">解雇病房护士</v-btn></v-col>
 
-              <v-col><v-btn class="my-1" dark elevation="2" color="blue darken-3">决定出院</v-btn></v-col>
             </v-card>
           </v-col>
         </v-row>
@@ -68,7 +59,7 @@
 
 <script>
 export default {
-  name: 'DecideCheckOut',
+  name: 'RemoveNurseWard',
   props: {
     currentItem: {
       type: Set,
@@ -98,39 +89,24 @@ export default {
       itemsPerPage: 4,
       items: [
         {
-          id: '9',
-          name: '李斯特',
-          checkOut: '是'
+          id: '123',
+          name: '李美丽'
         },
         {
-          id: '11',
-          name: '好医生',
-          checkOut: '是'
+          id: '23',
+          name: '王美丽'
         },
         {
-          id: '3',
-          name: '包治',
-          checkOut: '否'
+          id: '13',
+          name: '肖美丽'
         },
         {
-          id: '5',
-          name: '白冰',
-          checkOut: '否'
+          id: '1234',
+          name: '张美丽'
         },
         {
-          id: '7',
-          name: '不愧',
-          checkOut: '是'
-        },
-        {
-          id: '1',
-          name: '是你',
-          checkOut: '否'
-        },
-        {
-          id: '8',
-          name: '老李',
-          checkOut: '是'
+          id: '523',
+          name: '大美丽'
         }
       ]
     }

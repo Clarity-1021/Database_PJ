@@ -1,8 +1,5 @@
 <template>
   <v-container fluid>
-    <!--显示角色身份-->
-    <v-card dark color="blue darken-3" class="py-3 my-3">你是“{{ currentItem.area }}”病区的主治医师“{{ currentItem.name }}”，正在决定病人是否出院</v-card>
-
     <!--展示病人信息-->
     <v-data-iterator :items="items" :items-per-page.sync="itemsPerPage" :page="page" hide-default-footer>
       <template v-slot:header>
@@ -41,34 +38,23 @@
       <template v-slot:default="props">
         <v-row>
           <v-col v-for="item in props.items" :key="item.id" cols="12" sm="6" md="4" lg="3">
-            <v-card>
+            <v-card link @click="currentPatient=item">
               <v-card-title class="subheading font-weight-bold">
                 {{ item.name }}
               </v-card-title>
-
-              <v-divider></v-divider>
-
-              <v-list dense>
-                <v-list-item>
-                  <v-list-item-content class="font-weight-bold">是否满足出院条件</v-list-item-content>
-                  <v-list-item-content class="align-end">
-                    {{ item.checkOut }}
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-
-              <v-col><v-btn class="my-1" dark elevation="2" color="blue darken-3">决定出院</v-btn></v-col>
             </v-card>
           </v-col>
         </v-row>
       </template>
     </v-data-iterator>
+
+    <AddDailyInfo :currentItem="currentItem" :currentPatient="currentPatient" v-if="currentPatient" />
   </v-container>
 </template>
 
 <script>
 export default {
-  name: 'DecideCheckOut',
+  name: 'AddDailyPatientInfo',
   props: {
     currentItem: {
       type: Set,
@@ -93,44 +79,66 @@ export default {
   },
   data () {
     return {
+      currentPatient: false,
       itemsPerPageArray: [4, 8, 12],
       page: 1,
       itemsPerPage: 4,
       items: [
         {
-          id: '9',
+          id: '123',
           name: '李斯特',
-          checkOut: '是'
+          checkOut: '是',
+          illnessLevel: '轻症',
+          lifeState: '在院治疗',
+          checkInDate: '2020-12-03'
         },
         {
-          id: '11',
-          name: '好医生',
-          checkOut: '是'
+          id: '1234',
+          name: '讲文明',
+          checkOut: '是',
+          illnessLevel: '轻症',
+          lifeState: '在院治疗',
+          checkInDate: '2020-12-03'
         },
         {
-          id: '3',
-          name: '包治',
-          checkOut: '否'
+          id: '124',
+          name: '有礼貌',
+          checkOut: '否',
+          illnessLevel: '轻症',
+          lifeState: '康复出院',
+          checkInDate: '2020-12-03'
         },
         {
-          id: '5',
-          name: '白冰',
-          checkOut: '否'
+          id: '143',
+          name: '不说',
+          checkOut: '否',
+          illnessLevel: '轻症',
+          lifeState: '在院治疗',
+          checkInDate: '2020-12-03'
         },
         {
-          id: '7',
-          name: '不愧',
-          checkOut: '是'
+          id: '1232',
+          name: '脏话',
+          checkOut: '否',
+          illnessLevel: '轻症',
+          lifeState: '在院治疗',
+          checkInDate: '2020-12-03'
         },
         {
-          id: '1',
-          name: '是你',
-          checkOut: '否'
+          id: '127',
+          name: '好',
+          checkOut: '否',
+          illnessLevel: '轻症',
+          lifeState: '在院治疗',
+          checkInDate: '2020-12-03'
         },
         {
-          id: '8',
-          name: '老李',
-          checkOut: '是'
+          id: '128',
+          name: '习惯',
+          checkOut: '否',
+          illnessLevel: '轻症',
+          lifeState: '在院治疗',
+          checkInDate: '2020-12-03'
         }
       ]
     }
