@@ -1,7 +1,6 @@
 <template>
 <div class="d-flex flex-row overflow-x-auto overflow-y-hidden" style="min-height: 100vh">
   <v-navigation-drawer style="min-width: 200px; min-height: 100vh" permanent>
-<!--  <v-navigation-drawer permanent style="border: solid">-->
 
     <v-list><!--版头-->
       <v-list-item link>
@@ -29,7 +28,6 @@
     </v-list>
   </v-navigation-drawer>
   <Doctor v-if="currentMenuItem==='主治医师'" />
-<!--  <Doctor v-if="currentMenuItem==='主治医师'" style="border: solid" />-->
   <NurseHead v-if="currentMenuItem==='护士长'" style="border: solid" />
   <NurseEmergency v-if="currentMenuItem==='急诊护士'" style="border: solid" />
   <NurseWard v-if="currentMenuItem==='病房护士'" style="border: solid" />

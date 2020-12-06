@@ -10,11 +10,16 @@
     <v-container fluid v-if="areaType">
       <v-card class="d-flex flex-row justify-space-around py-3">
         <v-btn dark v-for="(func, j) in funcs" :key="j" v-text="func.text" elevation="2" color="blue darken-3" @click="funcType=func.text"></v-btn>
+        <v-btn v-if="areaType==='轻症'" dark elevation="2" color="blue darken-3" @click="funcType='决定出院'">决定出院</v-btn>
       </v-card>
     </v-container>
-
     <SearchPatient :areaType="areaType" v-if="funcType==='查询病人'" />
     <SearchNurseHead :area-type="areaType" v-if="funcType==='查询护士长'" />
+    <SearchNurse :area-type="areaType" v-if="funcType==='查询病房护士'" />
+    <EditIllnessLevel :area-type="areaType" v-if="funcType==='修改病情评级'" />
+    <EditLifeState :area-type="areaType" v-if="funcType==='修改生命状态'" />
+    <DoNAT :area-type="areaType" v-if="funcType==='核酸检测'" />
+    <DecideCheckOut :area-type="areaType" v-if="funcType==='决定出院'" />
   </v-container>
 </template>
 
@@ -49,13 +54,12 @@ export default {
       funcs: [
         {text: '查询病人'},
         {text: '查询护士长'},
-        {text: '查询护士'},
+        {text: '查询病房护士'},
         {text: '修改病情评级'},
-        {text: '修改生命特征'},
-        {text: '核酸检测'},
-        {text: '决定出院'}
+        {text: '修改生命状态'},
+        {text: '核酸检测'}
       ],
-      funcType: '查询护士长'
+      funcType: '决定出院'
       // funcType: ''
     }
   }

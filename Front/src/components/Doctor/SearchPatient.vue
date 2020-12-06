@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <!--显示角色身份-->
-    <v-card dark color="blue darken-3" class="py-3 my-3">你是{{ areaType }}病区的主治医师，正在查询病人的信息</v-card>
+    <v-card dark color="blue darken-3" class="py-3 my-3">你是“{{ areaType }}”病区的主治医师，正在查询病人的信息</v-card>
 
     <!--选择查询病人的条件-->
     <v-card class="mb-3">
@@ -121,63 +121,61 @@ export default {
       page: 1,
       itemsPerPage: 4,
       keys: [
-        '身份证号',
         '是否出院',
         '待转入病区',
         '生命状态'
       ],
       itemsInfos: [
-        'id',
         'isInHospital',
         'waitForOtherArea',
         'lifeState'
       ],
       items: [
         {
+          id: '123',
           name: '李斯特',
-          id: '123123',
           isInHospital: '住院',
           waitForOtherArea: '-',
           lifeState: '在院治疗'
         },
         {
+          id: '1234',
           name: '讲文明',
-          id: '123124',
           isInHospital: '出院',
           waitForOtherArea: '-',
           lifeState: '在院治疗'
         },
         {
+          id: '124',
           name: '有礼貌',
-          id: '123128',
           isInHospital: '住院',
           waitForOtherArea: '-',
           lifeState: '康复出院'
         },
         {
+          id: '143',
           name: '不说',
-          id: '173123',
           isInHospital: '住院',
           waitForOtherArea: '轻症',
           lifeState: '在院治疗'
         },
         {
+          id: '1232',
           name: '脏话',
-          id: '823123',
           isInHospital: '住院',
           waitForOtherArea: '-',
           lifeState: '在院治疗'
         },
         {
+          id: '127',
           name: '好',
-          id: '123523',
           isInHospital: '住院',
           waitForOtherArea: '-',
           lifeState: '在院治疗'
         },
         {
+          id: '128',
           name: '习惯',
-          id: '143123',
           isInHospital: '住院',
           waitForOtherArea: '-',
           lifeState: '在院治疗'

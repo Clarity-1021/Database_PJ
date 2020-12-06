@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <!--显示角色身份-->
-    <v-card dark color="blue darken-3" class="py-3 my-3">你是{{ areaType }}病区的主治医师，正在查询护士长的信息</v-card>
+    <v-card dark color="blue darken-3" class="py-3 my-3">你是“{{ areaType }}”病区的主治医师，正在查询护士长的信息</v-card>
 
     <!--展示护士长信息-->
     <v-data-iterator :items="items" :items-per-page.sync="itemsPerPage" :page="page" hide-default-footer>
@@ -45,19 +45,6 @@
               <v-card-title class="subheading font-weight-bold">
                 {{ item.name }}
               </v-card-title>
-
-              <v-divider></v-divider>
-
-              <v-list dense>
-                <v-list-item v-for="(info, index) in itemsInfos" :key="index">
-                  <v-list-item-content class="font-weight-bold">
-                    {{ keys[index] }}
-                  </v-list-item-content>
-                  <v-list-item-content class="align-end">
-                    {{ item[info] }}
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
             </v-card>
           </v-col>
         </v-row>
@@ -93,35 +80,13 @@ export default {
   },
   data () {
     return {
-      // areaType: '',
-      selectItems: [
-        {text: '是否出院', items: ['是', '否', '所有']},
-        {text: '是否待转入其他病区', items: ['是', '否', '所有']},
-        {text: '生命状态', items: ['康复出院', '在院治疗', '病亡', '所有']}
-      ],
-      checkBtnText: '查询病人',
       itemsPerPageArray: [4, 8, 12],
       page: 1,
       itemsPerPage: 4,
-      keys: [
-        '身份证号',
-        '是否出院',
-        '待转入病区',
-        '生命状态'
-      ],
-      itemsInfos: [
-        'id',
-        'isInHospital',
-        'waitForOtherArea',
-        'lifeState'
-      ],
       items: [
         {
-          name: '李斯特',
-          id: '123123',
-          isInHospital: '住院',
-          waitForOtherArea: '-',
-          lifeState: '在院治疗'
+          id: '9',
+          name: '李斯特'
         }
       ]
     }

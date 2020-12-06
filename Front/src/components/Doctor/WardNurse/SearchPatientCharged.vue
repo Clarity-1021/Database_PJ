@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
-    <!--显示角色身份-->
-    <v-card dark color="blue darken-3" class="py-3 my-3">你是“{{ areaType }}”病区的主治医师，正在修改病人病情评级</v-card>
+    <!--展示病房护士信息-->
+    <v-card dark color="blue darken-3" class="py-3 my-3">病房护士“{{ nurseName }}”负责的病人</v-card>
 
     <!--展示病人信息-->
     <v-data-iterator :items="items" :items-per-page.sync="itemsPerPage" :page="page" hide-default-footer>
@@ -45,13 +45,6 @@
               <v-card-title class="subheading font-weight-bold">
                 {{ item.name }}
               </v-card-title>
-
-              <v-divider></v-divider>
-
-              <v-select offset-y class="px-5 pt-5" v-model="item.illnessLevel" :items="selectItem.items" :label="selectItem.text" dense></v-select>
-
-              <v-col><v-btn class="mb-4" dark elevation="2" color="blue darken-3">修改病情评级</v-btn></v-col>
-
             </v-card>
           </v-col>
         </v-row>
@@ -62,11 +55,15 @@
 
 <script>
 export default {
-  name: 'EditIllnessLevel',
+  name: 'SearchPatientCharged',
   props: {
-    areaType: {
+    nurseName: {
       type: String,
       default: ''
+    },
+    items: {
+      type: Set,
+      default: [{name: ''}]
     }
   },
   computed: {
@@ -87,50 +84,9 @@ export default {
   },
   data () {
     return {
-      selectItem: {
-        text: '病情评级',
-        items: ['轻症', '重症', '危重症']
-      },
       itemsPerPageArray: [4, 8, 12],
       page: 1,
-      itemsPerPage: 4,
-      items: [
-        {
-          id: '123',
-          name: '李斯特',
-          illnessLevel: '轻症'
-        },
-        {
-          id: '1234',
-          name: '讲文明',
-          illnessLevel: '轻症'
-        },
-        {
-          id: '124',
-          name: '有礼貌',
-          illnessLevel: '轻症'
-        },
-        {
-          id: '143',
-          name: '不说',
-          illnessLevel: '轻症'
-        },
-        {
-          id: '1232',
-          name: '脏话',
-          illnessLevel: '轻症'
-        },
-        {
-          id: '127',
-          name: '好',
-          illnessLevel: '轻症'
-        },
-        {
-          id: '128',
-          name: '习惯',
-          illnessLevel: '轻症'
-        }
-      ]
+      itemsPerPage: 4
     }
   }
 }
